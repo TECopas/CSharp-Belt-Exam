@@ -1,0 +1,47 @@
+<a href="logout">Logout</a>
+
+<br>
+
+<a href="NewShindig">Plan a new Activity</a>
+
+<br>
+
+<table class="table table-striped">
+<tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Attendees</th>
+    <th>Action</th>
+</tr>
+@model User //NEED THIS
+@foreach (var shin in ViewBag.Shindigs)
+{
+    @if(DateTime.Today.AddDays(-1) < shin.Date){
+
+    <tr>
+        <td><a href="/Activity/@shin.ShindigID">@shin.Title</a></td>
+        <td>@shin.Date.ToString("MM/dd/yyyy")</td>
+        <td>@shin.Time.ToString("h:mm tt")</td>
+        <td>@shin.Attendees.Count</td>
+        <td>
+            @if (Model.UserID == shin.UserID)
+                {
+                    <a href="/DeleteActivity/@shin.ShindigID" class="btn btn-danger">Delete Activity</a>
+                }
+            else
+                {
+                    if(Model.AttendingShindigs.All(a => a.ShindigID != shin.ShindigID))
+                    {
+                        <a href="/Join/@shin.ShindigID" class= "btn btn-primary">Join</a>
+                    }
+                    else
+                        {
+                            <a href="/unJoin/@shin.ShindigID" class="btn btn-warning">Un-Join</a>
+                        }
+                }
+        </td>
+    </tr>
+    }
+}
+</table>

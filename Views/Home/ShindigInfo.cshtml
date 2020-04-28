@@ -1,0 +1,34 @@
+@model User
+
+<h1>Activity: @ViewBag.ShinInfo.Title</h1>
+<br>
+<h3>Event Coordinator: @ViewBag.ShinInfo.Planner.Name</h3>
+<br>
+<p>Date: @ViewBag.ShinInfo.Date.ToString("MM/dd/yyyy")</p>
+<p>Date: @ViewBag.ShinInfo.Time.ToString("h:mm tt")</p>
+<br>
+<p>@ViewBag.ShinInfo.Description</p>
+<br>
+<h4>Attendees:</h4>
+<ul>
+    @foreach (var item in ViewBag.Attendees)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
+
+@if (Model.UserID == @ViewBag.ShinInfo.UserID)
+                {
+                    <a href="/DeleteActivity/@ViewBag.ShinInfo.ShindigID" class="btn btn-danger">Delete Activity</a>
+                }
+            else
+                {
+                    if(Model.AttendingShindigs.All(a => a.ShindigID != @ViewBag.ShinInfo.ShindigID))
+                    {
+                        <a href="/Join/@ViewBag.ShinInfo.ShindigID" class= "btn btn-primary">Join</a>
+                    }
+                    else
+                        {
+                            <a href="/unJoin/@ViewBag.ShinInfo.ShindigID" class="btn btn-warning">Un-Join</a>
+                        }
+                }

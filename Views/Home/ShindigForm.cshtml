@@ -1,0 +1,31 @@
+<h1>Plan an Activity</h1>
+
+<!-- Using the Session ID I have stored after login to create the PlannerID in this form -->
+
+@model Shindig
+<form asp-action="CreateActivity" asp-controller="Home" method="post">
+    <label asp-for="Title"> Title:</label>
+    <input asp-for="Title">
+    <span asp-validation-for="Title"></span>
+    <br/>
+    <label asp-for="Date"> Date:</label>
+    <input asp-for="Date">
+    <span asp-validation-for="Date"></span>
+    <br/>
+    <label asp-for="Time">Time:</label>
+    <input asp-for="Time">
+    <span asp-validation-for="Time"></span>
+    <br/>
+    <label asp-for="Duration">Duration in Minutes:</label>
+    <input asp-for="Duration">
+    <span asp-validation-for="Duration"></span>
+    <br/>
+    <label asp-for="Description"> Activity Description:</label>
+    <textarea asp-for="Description" rows="5" cols="20"></textarea>
+    <span asp-validation-for="Description"></span>
+    <br/>
+    <input type="hidden" value="@ViewBag.Planner" asp-for="UserID">
+    <input value="Plan Activity" type="submit">
+</form>
+
+<div asp asp-validation-summary="All"></div>
